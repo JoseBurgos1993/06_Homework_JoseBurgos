@@ -4,15 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
 
 </head>
 <body>
-    
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <!--
+        <input type="submit"value="Find" style="float: right" />
+        <div style="overflow: hidden; padding-right: .5em;">
+            <input type="text" style="width: 100%;" />
+        </div>
+    -->
 
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form>
+                    <label for="cityName" class="h5">Search for a City:</label>
+                    <div>
+                        <button type="submit" class="btn btn-primary submit"><i class="fa fa-search"></i></button>
+                        <div class="form-group" style="overflow: hidden; padding-right: .5em;">
+                            <input type="city-name" class="form-control" id="cityName" placeholder="Townsville">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
 
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- INSERT FOOTER HERE -->
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>

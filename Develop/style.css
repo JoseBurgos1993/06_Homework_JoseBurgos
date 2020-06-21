@@ -1,0 +1,17 @@
+header{
+    background-color: rgb(77, 77, 77);
+    text-align: center;
+}
+
+h1{
+    color: white;
+    padding: 25px;
+    padding-top: 15px;
+    margin-bottom: 0rem;
+}
+.container{
+    margin-top: 15px;
+}
+.submit{
+    float: right;
+}

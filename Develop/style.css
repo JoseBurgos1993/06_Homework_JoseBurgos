@@ -1,6 +1,7 @@
 header{
     background-color: rgb(77, 77, 77);
     text-align: center;
+    color: gainsboro;
 }
 
 h1{
@@ -14,4 +15,24 @@ h1{
 }
 .submit{
     float: right;
+}
+.cityBtn{
+    padding: 5px;
+    width: 80%;
+}
+footer {
+    /*
+
+
+    */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+
+    clear: both;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    background-color: rgb(77, 77, 77);
+    color: gainsboro;
 }

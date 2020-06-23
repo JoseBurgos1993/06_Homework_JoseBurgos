@@ -20,6 +20,15 @@ h1{
     padding: 5px;
     width: 80%;
 }
+.foreCast{
+    padding: 20px;
+}
+.dayCast{
+    border-radius: 25px;
+    margin: 10px;
+    background-color: dodgerblue;
+    height: 150px;
+}
 footer {
     /*
 

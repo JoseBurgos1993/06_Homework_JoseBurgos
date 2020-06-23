@@ -34,8 +34,9 @@ $("document").ready(function(){
                     const forecast5 = response.list[5];
 
                     const UV = "xxx";
+                    $("#rightSide").css("display", "block");
                     $("#today").html(
-                        cityName + "(DATE)" + weatherSymbol() + "<br>" +
+                        "<h2>" + cityName + "(DATE)" + weatherSymbol() + "</h2><br>" +
                         "Temperature: " + today.main.temp + "&#8457 <br>" +
                         "Humidity: " + today.main.humidity + "% <br>" +
                         "Wind Speed: " + today.wind.speed + "MPH <br>" +

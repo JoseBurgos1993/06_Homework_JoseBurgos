@@ -10,8 +10,16 @@ h1{
     padding-top: 15px;
     margin-bottom: 0rem;
 }
+#rightSide{
+    display: none;
+}
 .container{
     margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: lightsteelblue;
+    border-radius: 25px;
+    border-color: black;
+    border-width: 5px;
 }
 .submit{
     float: right;
@@ -19,11 +27,14 @@ h1{
 .cityBtn{
     padding: 5px;
     width: 80%;
+    margin-bottom: 5px;
 }
 .foreCast{
     padding: 20px;
 }
-.dayCast{
+.panel{
+    color: white;
+    text-align: center;
     border-radius: 25px;
     margin: 10px;
     background-color: dodgerblue;
@@ -37,7 +48,7 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 15px;
+    padding: 5px;
 
     clear: both;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

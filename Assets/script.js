@@ -1,6 +1,5 @@
 // Javascript file
 // By Jose Burgos
-// https://en.wikipedia.org/wiki/Miscellaneous_Symbols
 
 
 $("document").ready(function(){
@@ -11,8 +10,9 @@ $("document").ready(function(){
 
     // Queries for weather data
     function getWeatherData(cityName){
-        event.preventDefault();
+        //event.preventDefault();
         let e = true; // Boolean that is used to check for errors
+        cityName = cityName.toUpperCase();
 
         const queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apikey;
 
@@ -26,24 +26,17 @@ $("document").ready(function(){
                 // If query succeeded
                 if(e == true){
 
-                    // Do Data
-                    const today = response.list[0];
-                    /*
-                    const forecast1 = response.list[1];
-                    const forecast2 = response.list[2];
-                    const forecast3 = response.list[3];
-                    const forecast4 = response.list[4];
-                    const forecast5 = response.list[5];
-                    */
-                    for(let i=0; i<5; i++){
-                        const forecast = response.list[i+1];
-                        let temp1 = forecast.main.temp;
-                        temp1 = ((temp1 - 273.15) *1.8 + 32).toFixed(1);
-                        const humid = forecast.main.humidity;
-                        const icon1 = weatherSymbol(forecast.weather[0].icon);
-
-
+                    // Gets and sets local storage
+                    let history = localStorage.getItem("cityHistory");
+                    if(history === null){
+                        localStorage.setItem("cityHistory", cityName);
+                    } else{
+                        history = history + "," + cityName;
+                        localStorage.setItem("cityHistory", history);
                     }
+                    localStorage.setItem("lastCity", cityName);
+
+                    // Gets and writes the 5-day forecast
                     let i = 1;
                     $(".dayCast").each(function(){
                         const forecast = response.list[i];
@@ -59,23 +52,27 @@ $("document").ready(function(){
                             "Humid: " + humid + "%"
                         );
                     });
-                    
-                    //$("#currentDay").text(moment().format("MMMM Do YYYY"));
+
+
+                    // Gets data for today's forecast
+                    const today = response.list[0];
                     const date = moment().format("(MMMM Do YYYY)");
                     const temp = ((today.main.temp - 273.15) * 1.8 + 32).toFixed(1);
                     const humidity = today.main.humidity;
                     const windspeed = today.wind.speed.toFixed(1);
+
+                    // getting latitude and longitude to acquire the UV index
                     const lat = response.city.coord.lat;
                     const lon = response.city.coord.lon;
                     var UV = 0.0;
                     const newURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,daily&appid=" + apikey;
 
-                    console.log("--------WEATHER SYMBOL--------");
+                    // Gets today's weather icon
                     console.log(today.weather[0].main);
                     console.log(weatherSymbol(today.weather[0].icon));
                     const icon = weatherSymbol(today.weather[0].icon);
-                    console.log("------------------------------");
                     
+                    // Queries for today's uv data, then writes today's forecast
                     $.ajax({url: newURL, method: "GET",}).then(function(newResponse){
                         UV = newResponse.current.uvi;
 
@@ -88,17 +85,6 @@ $("document").ready(function(){
                             "Wind Speed: "  + windspeed + " MPH <br>" +
                             "UV Index: "    + UV
                         );
-                        const lastCity = [cityName, temp, humidity, windspeed, UV, weatherSymbol];
-                        localStorage.setItem("lastCity", lastCity);
-
-                        /*
-                        console.log(today);
-                        console.log(forecast1);
-                        console.log(forecast2);
-                        console.log(forecast3);
-                        console.log(forecast4);
-                        console.log(forecast5);
-                        */
                     });
                 }
             }
@@ -108,12 +94,12 @@ $("document").ready(function(){
     // Gets the correct weather symbol based on that day's weather
     function weatherSymbol(code){
         //http://openweathermap.org/img/wn/10d@2x.png
-        
         return "http://openweathermap.org/img/wn/" + code + ".png";
     }
 
     // Creates a new button for the search history area
     function createButton(cityName){
+        cityName = cityName.toUpperCase();
         const newButton = $("<button>");
         newButton.text(cityName);
         newButton.addClass("cityBtn");
@@ -132,14 +118,13 @@ $("document").ready(function(){
 
     // Compares inputed city name to current buttons. Returns true if duplicate exists, returns false if not.
     function checkDuplicate(cityName){
-        let result = false;
+        cityName = cityName.toUpperCase();
+        var result = false;
         $(".cityBtn").each(function(){
             if($(this).text() == cityName){
                 result = true;
-                return 0;
-            } else{
-                result = false;
-                return 0;
+                console.log(result);
+                return false; // <--- apparently returning false in a .each() works as a break
             }
         });
         return result;
@@ -152,42 +137,39 @@ $("document").ready(function(){
     
     $(".submit").on("click", function(){
         event.preventDefault();
-        const cityName = $("#cityName").val().toUpperCase();
-
+        const cityName = $("#cityName").val();
         if(!checkDuplicate(cityName)){
             getWeatherData(cityName);
             createButton(cityName);
         }
     });
 
-
+    // Clears history buttons and memory
     $(".clear").on("click", function(){
         $(".btnList").empty();
-    })
-    /*
-    function cityClickEvent(){
-        event.preventDefault();
-        const cityName = $(this).text();
-        if(!checkDuplicate(cityName)){
-            getWeatherData(cityName);
-        }
-    }*/
-    // City buttons exist as a search history. Clicking them will re-query that data
-    
-    $(document).on("click",".cityBtn", function(){
-        console.log("-----");
-        console.log($(this));
-        console.log($(this).children()[0].text());
-        console.log("-----");
-        if(!checkDuplicate($(this).children(0).text())){
-            getWeatherData($(this).children(0).text());
-        }
+        localStorage.removeItem("cityHistory");
+        localStorage.removeItem("lastCity");
     });
-    
 
+    // Function for the for loop below
+    function test(item){
+        if(!checkDuplicate(item)){
+            createButton(item);
+        }
+    }
     //---- MAIN FUNCTION ----\\
     function main(){
-        // Does nothing right now. I just wanted a Main.
+        // Read from memory
+        const lastCity = localStorage.getItem("lastCity");
+        if(lastCity != null){
+            getWeatherData(lastCity);
+        }
+        const cityHistory = localStorage.getItem("cityHistory");
+        if(cityHistory != null){
+            const history = cityHistory.split(",");
+            
+            history.forEach(test);
+        }
     }
     main();
 });

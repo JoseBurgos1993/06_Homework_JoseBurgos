@@ -1,7 +1,7 @@
-# 06_Homework_JoseBurgos
+# Weather Dashboard
 
-This is my repository, https://github.com/JoseBurgos1993/06_Homework_JoseBurgos.
-This is a link to the deployed webpage, https://joseburgos1993.github.io/06_Homework_JoseBurgos/.
+This is my repository, https://github.com/JoseBurgos1993/Weather-Dashboard/.
+This is a link to the deployed webpage, https://joseburgos1993.github.io/Weather-Dashboard/.
 
 <img width="946" alt="screenshot" src="https://user-images.githubusercontent.com/57579330/85912970-b1c0cc00-b7fe-11ea-8dfa-404557e8e5b9.png">
 
